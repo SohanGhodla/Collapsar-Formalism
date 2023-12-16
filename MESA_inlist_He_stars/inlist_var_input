@@ -1,0 +1,146 @@
+&star_job
+ !------------ SET ROTATION ------------ 
+new_rotation_flag = .true.
+change_rotation_flag = .true.
+
+! set_omega_div_omega_crit = .true.
+! set_initial_omega_div_omega_crit = .true.
+new_omega_div_omega_crit = 0.05
+
+relax_Z = .true.
+new_Z = 0.0001d0
+
+relax_Y = .true.
+new_Y = 0.999d0
+
+pgstar_flag = .true.
+
+! relax_initial_tau_factor=.true. !Only works on ./rn, not ./re
+! relax_to_this_tau_factor=1d3
+! dlogtau_factor=.1
+
+pause_before_terminate = .true.
+/ !end of star_jobs
+
+
+&kap
+kap_file_prefix = 'a09' ! 'gs98' 'a09'  'OP_a09' 'OP_gs98'
+kap_CO_prefix   =  'a09_co' !'a09_co' ! 'gs98_co' 'a09_co'
+kap_lowT_prefix = 'lowT_fa05_a09p'
+use_Type2_opacities = .true.  
+! ------------- Saves initial Z------------ 
+Zbase = 0.0001
+/ ! end of kap namelist
+
+
+&controls
+! --------------- SET initial MASS and METALLICITY------------ 
+initial_mass = 5.0
+!don't need this as being set by relaxation above.
+! initial_z = 0.001
+
+ ! ---------------------  wind options -------------------------
+hot_wind_scheme = 'Dutch'
+cool_wind_RGB_scheme = 'de Jager'
+cool_wind_AGB_scheme = 'de Jager'
+Dutch_wind_lowT_scheme = 'de Jager'
+cool_wind_full_on_T = 9.9d3
+hot_wind_full_on_T = 1d4
+Dutch_scaling_factor = 0.25  ! Low stength here. Ranges  from [0,1]
+de_Jager_scaling_factor = 1d0 !0d0 default.
+
+
+! !------------------  ROTATIONAL MIXING coeffs   -----------------
+am_nu_ST_factor = 1.0
+D_visc_factor = 0.0
+am_nu_SH_factor = 0.0
+D_ST_factor = 1.0
+D_SH_factor = 0.0
+D_GSF_factor = 1.0
+D_ES_factor = 1.0
+D_SSI_factor = 1.0
+D_DSI_factor = 1.0
+!num_cells_for_smooth_gradL_composition_term = 2
+!Efficiency of angular momentum mixing = 1/30 or 0.0333 See -->
+! (Chaboyer & Zahn 1992; Heger, Langer & Woosley 2000).
+am_D_mix_factor = 0.0333333d0
+!The inhibiting effect of composition gradients in rotational mixing as described by Heger et al. (2000)
+!dimension less factor to account for that.
+am_gradmu_factor = 0.1d0
+
+
+MLT_option = 'Henyey'
+use_Ledoux_criterion = .true.
+use_gold2_tolerances = .true.
+
+
+! ----------------------- Some extra resolution parameters ---------------------
+solver_iters_timestep_limit = 10
+! recalc_mixing_info_each_substep = .true.
+delta_lg_XO_cntr_limit = 0.04d0 !Changed
+delta_lg_XO_cntr_max = 0.0d0
+delta_lg_XO_cntr_min = -3.0d0 !Changed
+delta_lg_XO_cntr_hard_limit = 0.06d0 !Changed
+
+okay_to_reduce_gradT_excess = .true.
+gradT_excess_age_fraction = 0.999d0
+gradT_excess_max_change = 0.01d0 !Changed
+
+min_timestep_factor = 0.9
+max_timestep_factor = 1.2d0
+retry_hold = 3
+redo_limit = -1
+relax_hard_limits_after_retry = .false.
+
+!extra spatial resolution
+max_dq = 0.02 !Changed
+
+fix_eps_grav_transition_to_grid = .true.
+
+! these are to properly resolve core hydrogen depletion
+delta_lg_XH_cntr_limit = 0.04d0 !Changed
+delta_lg_XH_cntr_max = 0.0d0
+delta_lg_XH_cntr_min = -4.0d0 !Changed
+delta_lg_XH_cntr_hard_limit = 0.06d0 !Changed
+! these are to properly resolve core helium depletion
+delta_lg_XHe_cntr_limit = 0.04d0 !Changed
+delta_lg_XHe_cntr_max = 0.0d0
+delta_lg_XHe_cntr_min = -4.0d0 !Changed
+delta_lg_XHe_cntr_hard_limit = 0.06d0 !Changed
+! these are to properly resolve core carbon depletion
+delta_lg_XC_cntr_limit = 0.02d0
+delta_lg_XC_cntr_max = 0.0d0
+delta_lg_XC_cntr_min = -4.0d0
+delta_lg_XC_cntr_hard_limit = 0.03d0
+! this is mainly to resolve properly when the star goes off the main sequence
+delta_HR_limit = 0.01d0 !Changed
+! relax default dHe/He, otherwise growing He core can cause things to go at a snail pace
+dHe_div_He_limit = 2.0
+! we're not looking for much precision at the very late stages
+dX_nuc_drop_limit = 5d-2
+
+
+!------------------------------- Stopping condition ----------------------------
+!fe_core_infall_limit = 2d7 !m/s
+xa_central_lower_limit_species(1) = 'o16'
+xa_central_lower_limit(1) = 1d-9
+
+
+! -------------------------- Resolution in space and time --------------------
+mesh_delta_coeff = 0.8 
+mesh_delta_coeff_for_highT = 1.5d0
+varcontrol_target = 5d-4
+
+! ------------------------- Saved/displayed data freqency----------------------
+photo_interval = -1 !intervals at which a photo is saved for restarts
+profile_interval = 10
+history_interval = 5
+terminal_interval = 10
+write_header_frequency = 10
+
+
+/ ! end of controls namelist
+
+
+
+

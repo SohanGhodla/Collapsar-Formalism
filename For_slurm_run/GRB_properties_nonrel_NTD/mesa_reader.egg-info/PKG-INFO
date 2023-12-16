@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: mesa-reader
+Version: 0.3.0
+Summary: tools for interacting with output from MESA star
+Home-page: http://github.com/wmwolf/py_mesa_reader
+Author: William M. Wolf
+Author-email: wolfey6@gmail.com
+License: MIT
+Description: UNKNOWN
+Platform: UNKNOWN
