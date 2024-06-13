@@ -6,7 +6,7 @@ This repository contains the data required to reproduce the figures in the paper
 
 - The `Collapsar dynamics - Section 2.2.ipynb` is a <a href="https://sagemanifolds.obspm.fr/" target="_blank">`SAGE`</a> notebook that contains the symbolic implementation of some of the calculations performed in Section 2.2 of the paper.
 
- - The `Plots_Stellar_rotation_and_collapsars.ipynb` file contains the code for generating those plots that consider fiducial values of the assumed free parameters such as $s, \epsilon$ and  $\tilde{\eta}$.
+ - The `Plots_Stellar_rotation_and_collapsars.ipynb` file contains the code for generating those plots that consider fiducial values of the assumed free parameters such as $s, \alpha$ and  $\tilde{\eta}$.
 
  - The `Plots_Stellar_rotation_and_collapsars-Error_analysis.ipynb` file contains the code for generating fits for the black hole mass and spin spectrum. 
 
